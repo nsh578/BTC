@@ -59,14 +59,29 @@ router.get("/", function (req, res) {
 });
 
 //Routes ending in /coins
-router.route("/coins").post(function (req, res) {
-  var coin = new Coin();
-  coin.name = req.body.name;
+router
+  .route("/coins")
+  .post(function (req, res) {
+    var coin = new Coin();
+    coin.name = req.body.name;
 
-  //save coin and checking for errors
-  coin.save(function (err) {
+    //save coin and checking for errors
+    coin.save(function (err) {
+      if (err) res.send(err);
+      res.json({ message: "Coin " + coin.name + " is created!" });
+    });
+  })
+  .get(function (req, res) {
+    Coin.find(function (err, coins) {
+      if (err) res.send(err);
+      res.json(coins);
+    });
+  });
+
+router.route("/coins/:coin_id").get((req, res) => {
+  Coin.findById(req.params.coin_id, function (err, coin) {
     if (err) res.send(err);
-    res.json({ message: "Coin " + coin.name + " is created!" });
+    res.json(coin);
   });
 });
 
