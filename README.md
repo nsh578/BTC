@@ -1,5 +1,7 @@
 BTC App
 
+Run: `node server.js`
+
 Undetermined Coin Application.
 
 Initial setup:
