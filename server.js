@@ -78,12 +78,42 @@ router
     });
   });
 
-router.route("/coins/:coin_id").get((req, res) => {
-  Coin.findById(req.params.coin_id, function (err, coin) {
-    if (err) res.send(err);
-    res.json(coin);
+router
+  .route("/coins/:coin_id")
+  // get coin with id
+  .get((req, res) => {
+    Coin.findById(req.params.coin_id, function (err, coin) {
+      if (err) res.send(err);
+      res.json(coin);
+    });
+  })
+
+  // update coin with id
+  .put((req, res) => {
+    Coin.findById(req.params.coin_id, function (err, coin) {
+      if (err) res.send(err);
+      coin.name = req.body.name;
+
+      coin.save(function (err) {
+        if (err) res.send(err);
+        res.json({ message: "Coin updated!" });
+      });
+    });
+  })
+
+  // delete coin with id
+  .delete((req, res) => {
+    Coin.remove(
+      {
+        _id: req.params.coin_id,
+      },
+      function (err, coin) {
+        if (err) res.send(coin);
+        res.send(coin);
+        res.json({ message: "Coin " + coin.name + " is successfully deleted" });
+      }
+    );
   });
-});
 
 //Registering Routes
 //All apis will be prefixed by /api
