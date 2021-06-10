@@ -11,4 +11,4 @@ Initial setup:
 - DB is MongoDB using `mongoose`
 
 
-Planning to create something using solidity and integrate. Any ideas?
+Planning to create something using solidity and integrate, or implement Satoshi's blockchain. Any ideas?
